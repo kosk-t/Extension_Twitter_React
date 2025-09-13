@@ -11,7 +11,68 @@ line-height: 1.25;
 font-size: 14px;
 }
 
-table {
+/* Layout for like results */
+.like-page {
+  width: 90%;
+  margin: 12px auto 20px;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-bottom: 1px solid #e6e6e6;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.toolbar-title { font-weight: 600; }
+.count-pill {
+  display: inline-block;
+  margin-left: 8px;
+  background: #eef7ff;
+  color: #1d6fd1;
+  border: 1px solid #cfe6ff;
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 2px 8px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: #1da1f2;
+  color: #fff;
+}
+.btn-primary:hover { filter: brightness(0.95); }
+
+.notice {
+  background: #f0f9ff;
+  border: 1px solid #bfe3ff;
+  color: #045a9c;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 12px;
+}
+.notice.success {
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  color: #135200;
+}
+
+table,
+.like-table {
 border-collapse: collapse;
 margin: 0 auto;
 padding: 0;
@@ -54,7 +115,7 @@ color: #000;
 font-weight: bold;
 }
 @media screen and (max-width: 600px) {
-    table{width: 80%;}
+    table, .like-table{width: 95%;}
 }
 
 td:nth-child(4),

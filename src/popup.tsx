@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 const Popup = () => {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState<string>("");
+  const [statusKind, setStatusKind] = useState<"error" | "info" | "">("");
   const [version, setVersion] = useState<string>("");
   const [currentURL, setCurrentURL] = useState<string | undefined>(undefined);
 
@@ -25,10 +26,14 @@ const Popup = () => {
     }
   }, [currentURL]);
 
-  function notify(msg: string, timeout = 1200) {
+  function notify(msg: string, kind: "error" | "info" = "info", timeout = 1500) {
+    setStatusKind(kind);
     setStatus(msg);
     if (timeout > 0) {
-      const id = setTimeout(() => setStatus(""), timeout);
+      const id = setTimeout(() => {
+        setStatus("");
+        setStatusKind("");
+      }, timeout);
       return () => clearTimeout(id);
     }
     return () => {};
@@ -46,34 +51,38 @@ const Popup = () => {
     };
   }
 
-  const sendToActive = (payload: any, okMsg?: string) => {
+  const sendToActive = (payload: any) => {
     if (!isTwitterTab) {
-      notify("Please run this on a Twitter/X tab");
+      notify("Please run this on a Twitter/X tab", "error");
       return;
     }
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
-      if (tab?.id) {
-        chrome.tabs.sendMessage(tab.id, payload, () => {
-          if (okMsg) notify(okMsg);
-        });
+      if (!tab?.id) {
+        notify("No active tab found", "error");
+        return;
       }
+      chrome.tabs.sendMessage(tab.id, payload, () => {
+        if (chrome.runtime.lastError) {
+          notify(`Failed: ${chrome.runtime.lastError.message}`, "error");
+        }
+      });
     });
   };
 
   const getLike = withBusy(() => {
     if (process.env.DEBUG) console.log("getLike");
-    sendToActive({ name: "start", text: "like" }, "Started fetching");
+    sendToActive({ name: "start", text: "like" });
   });
 
   const getTweet = withBusy(() => {
     if (process.env.DEBUG) console.log("getTweet");
-    sendToActive({ name: "start", text: "tweet" }, "Started fetching");
+    sendToActive({ name: "start", text: "tweet" });
   });
 
   const getReply = withBusy(() => {
     if (process.env.DEBUG) console.log("getReply");
-    sendToActive({ name: "start", text: "reply" }, "Started fetching");
+    sendToActive({ name: "start", text: "reply" });
   });
 
   const viewResult = withBusy(() => {
@@ -90,7 +99,7 @@ const Popup = () => {
         <div className="meta">v{version}</div>
       </div>
 
-      {status && <div className="status">{status}</div>}
+      {status && <div className={`status ${statusKind === 'error' ? 'error' : ''}`}>{status}</div>}
 
       <button id="GetLike" onClick={getLike} className={`button light ${busy ? "disabled" : ""}`} disabled={busy}>
         Fetch Engagements 👍🔁✉
