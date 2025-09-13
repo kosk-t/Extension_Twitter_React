@@ -48,7 +48,7 @@ const Popup = () => {
 
   const sendToActive = (payload: any, okMsg?: string) => {
     if (!isTwitterTab) {
-      notify("Twitter/X のタブで実行してください");
+      notify("Please run this on a Twitter/X tab");
       return;
     }
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -63,17 +63,17 @@ const Popup = () => {
 
   const getLike = withBusy(() => {
     if (process.env.DEBUG) console.log("getLike");
-    sendToActive({ name: "start", text: "like" }, "取得を開始しました");
+    sendToActive({ name: "start", text: "like" }, "Started fetching");
   });
 
   const getTweet = withBusy(() => {
     if (process.env.DEBUG) console.log("getTweet");
-    sendToActive({ name: "start", text: "tweet" }, "取得を開始しました");
+    sendToActive({ name: "start", text: "tweet" }, "Started fetching");
   });
 
   const getReply = withBusy(() => {
     if (process.env.DEBUG) console.log("getReply");
-    sendToActive({ name: "start", text: "reply" }, "取得を開始しました");
+    sendToActive({ name: "start", text: "reply" }, "Started fetching");
   });
 
   const viewResult = withBusy(() => {
@@ -81,9 +81,7 @@ const Popup = () => {
     sendToActive({ name: "view" });
   });
 
-  const openOptions = withBusy(() => {
-    chrome.runtime.openOptionsPage();
-  });
+  // Options button removed by request
 
   return (
     <div className="popup-root">
@@ -95,7 +93,7 @@ const Popup = () => {
       {status && <div className="status">{status}</div>}
 
       <button id="GetLike" onClick={getLike} className={`button light ${busy ? "disabled" : ""}`} disabled={busy}>
-        👍🔁✉ Engagements を取得
+        Fetch Engagements 👍🔁✉
       </button>
 
       {/*
@@ -104,13 +102,12 @@ const Popup = () => {
       */}
 
       <button id="view" onClick={viewResult} className={`button blue ${busy ? "disabled" : ""}`} disabled={busy}>
-        結果を表示
+        View Results
       </button>
 
       <div className="links">
-        <button className={`button light small ${busy ? "disabled" : ""}`} onClick={openOptions} disabled={busy}>設定</button>
-        <a href="/privacy.html" target="_blank" rel="noreferrer">プライバシー</a>
-        <a href="https://note.com/kosk_t/n/n2d43c166e29b" target="_blank" rel="noreferrer">ヘルプ</a>
+        <a href="/privacy.html" target="_blank" rel="noreferrer">Privacy</a>
+        <a href="https://note.com/kosk_t/n/n2d43c166e29b" target="_blank" rel="noreferrer">Help</a>
         <a href="https://kosk-t.github.io/RandamSelection/" target="_blank" rel="noreferrer">Giveaway Tool</a>
       </div>
     </div>
@@ -124,4 +121,3 @@ root.render(
     <Popup />
   </React.StrictMode>
 );
-
