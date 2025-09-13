@@ -64,6 +64,10 @@ const Options = () => {
       </div>
       <div>{status}</div>
       <button onClick={saveOptions}>Save</button>
+      <hr />
+      <div>
+        <a href="/privacy.html" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+      </div>
     </>
   );
 };
