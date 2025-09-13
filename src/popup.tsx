@@ -115,7 +115,6 @@ const Popup = () => {
       </button>
 
       <div className="links">
-        <a href="/privacy.html" target="_blank" rel="noreferrer">Privacy</a>
         <a href="https://note.com/kosk_t/n/n2d43c166e29b" target="_blank" rel="noreferrer">Help</a>
         <a href="https://kosk-t.github.io/RandamSelection/" target="_blank" rel="noreferrer">Giveaway Tool</a>
       </div>
