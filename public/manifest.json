@@ -1,0 +1,31 @@
+{
+  "name": "Twitter Reaction Counter",
+  "description": "This extension get list of Like/Retweet on a tweet",
+  "version": "2.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*","https://x.com/*"],
+      "js": ["js/content_script.js"]
+    }
+  ],
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/number_128.png",
+      "32": "/images/number_128.png",
+      "48": "/images/number_128.png",
+      "128": "/images/number_128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/number_128.png",
+    "32": "/images/number_128.png",
+    "48": "/images/number_128.png",
+    "128": "/images/number_128.png"
+  }
+}

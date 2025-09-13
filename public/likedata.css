@@ -1,0 +1,68 @@
+/* CSS rules go here */
+/* @media screen and (max-width: 767px) {
+    table {
+        width: 100%;
+    }
+} */
+
+body {
+font-family: "Open Sans", sans-serif;
+line-height: 1.25;
+font-size: 14px;
+}
+
+table {
+border-collapse: collapse;
+margin: 0 auto;
+padding: 0;
+width: 650px;
+    box-shadow: 0 0 15px -6px #00000073;
+}
+table tr {
+background-color: #fff;
+}
+table tbody tr:hover{
+background-color: #cce9fc;
+}
+tr:nth-child(even) {
+background: #ebf6fd;
+}
+table th,
+table td {
+padding: .35em 1em;
+border-bottom: 1px solid #eee;
+}
+table thead th {
+    font-size: 1em;
+    padding: 1em;
+}
+table thead tr{
+background-color: #1da1f2;
+color:#fff;
+}
+table tbody th {
+text-align: left;
+font-size: .8em;
+}
+.txt{
+    text-align: left;
+    font-size: .85em;
+}
+.price{
+text-align: right;
+color: #000;
+font-weight: bold;
+}
+@media screen and (max-width: 600px) {
+    table{width: 80%;}
+}
+
+td:nth-child(4),
+td:nth-child(2) {    
+    word-wrap: break-word;
+    word-break: break-all;
+}
+td:nth-child(4) > img {
+    width: 18px;
+    height: 18px;
+}
